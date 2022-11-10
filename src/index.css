@@ -3,9 +3,11 @@
 body {
   margin: 0;
   font-family: 'Poppins' , sans-serif;
-  background : url(./assets/loginBg.jpg);
+  background : url(./assets/resturant.jpg);
   background-size:cover;
   background-attachment: fixed;
+  background-position-y: -20rem;
+  overflow-y: hidden;
 }
 
 code {
