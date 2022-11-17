@@ -2,29 +2,27 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Axios from 'axios';
 function Login() {
-    const [phoneNumber, setphoneNumber] = useState("");
-    const [password, setpassword] = useState("");
+    const [email, setemail] = useState("");
     const navigate = useNavigate();
 
     //  submit handleer
     async function handleLogin(e) {
         e.preventDefault();
+        e.preventDefault();
         try {
          let res = await Axios({
-             url : 'http://localhost:8080/user/login',
+             url : 'http://localhost:5000/user/login',
              method : 'post',
-              data:{
-                 phone_number : phoneNumber,
-                 password : password     
+             data :{
+                 email : email     
               }
            });
         
         //  set user to localstorage
            let user = res.data.user;
            localStorage.setItem("user" , JSON.stringify({id : user._id , isLoggedIn : true}));
-           localStorage.setItem("access_token" , res.data.access_token);
            navigate('/dashboard');
-           setphoneNumber("");
+           setemail("");
         } catch (error) {
           console.error(error);
       }
@@ -34,8 +32,7 @@ function Login() {
         <div>
             <form className="form" onSubmit={handleLogin}>
                 <h1>Login</h1>
-                <input type="text" placeholder="Enter your phone number" value={phoneNumber} onChange={e => setphoneNumber(e.target.value)} required/><br />
-                <input type="text" placeholder="Enter your password" value={password} onChange={e => setpassword(e.target.value)} required/><br />
+                <input type="text" placeholder="Enter your email address..." value={email} onChange={e => setemail(e.target.value)} /><br />
                 <button type="submit">Login</button>
                 <p>
                     Don't have an account{" "}

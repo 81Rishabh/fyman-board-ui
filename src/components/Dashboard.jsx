@@ -1,83 +1,56 @@
-import React, { useState } from "react";
-import Sidebar from "./Sidebar";
-import Axios from "axios";
-import { useEffect } from "react";
-import OrderList from "./OrderList";
+import React , {useState} from 'react';
+import AddTopicForm from './AddTopicForm';
+import {useNavigate} from 'react-router-dom';
+import Axios from 'axios';
+import { useEffect } from 'react';
 
 function Dashboard() {
-  const [user, setuser] = useState({});
-  const [show, setshow] = useState(false);
-  const [initalOrder, setinitalOrder] = useState([]);
-  const [isOrderCreated, setisOrderCreated] = useState(false);
-  const loggedInUser = JSON.parse(localStorage.getItem("user"));
-  const accessToken = localStorage.getItem("access_token");
-
-  // get logged in user
+  const [topics ,settopics] = useState([]);
+  const [isAdded , setisAdded] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
-    if (loggedInUser != null) {
-      getLoggedInUser();
+   async function fetchTopic(){
+      try {
+         const res = await Axios({
+           url: 'http://localhost:5000/topic',
+           method: 'get',
+         });
+         settopics(res.data.data);
+       } catch (error) {
+         console.error(error);
+       }
     }
-  }, []);
-
-
-  function getLoggedInUser() {
-    Axios({
-      url: "http://localhost:8080/user/" + loggedInUser.id,
-      method: "get",
-    })
-      .then((res) => {
-        setuser(res.data.user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  useEffect(() => {
-    Axios({
-      url: "http://localhost:8080/orders/" + loggedInUser.id,
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then((res) => {
-        setinitalOrder([...res.data.data]);
-       
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [isOrderCreated]);
+    fetchTopic();
+  },[isAdded]);
 
   return (
     <div className="dashboard-container">
-      <header>
-        <div className="header-left">
-          <h3>Orders</h3>
-          <button onClick={() => setshow(!show)}>Add Order</button>
-        </div>
-        <h4 className="username">{user && user.username}</h4>
-      </header>
-      <main>
-        <Sidebar
-          show={show}
-          setshow={setshow}
-          isOrderCreated={isOrderCreated}
-          setisOrderCreated={setisOrderCreated}
-          accessToken={accessToken}
-          loggedInUser={loggedInUser}
-        />
-        <section className="orders-container">
-          <ul>
-            {
-              !initalOrder ? 'Empty Orders' : <OrderList initalOrder={initalOrder} />
-            } 
-          </ul>
-        </section>
-      </main>
+       <header>
+          <button className="logout-btn" onClick={() => {
+            localStorage.removeItem("user");
+            navigate('/');
+          }}>Logout</button>
+       </header>
+       <div className="dashboard">
+          <AddTopicForm setidAdded={setisAdded} isAdded={isAdded}/>
+          <div className="main-dashboard">
+              <header>
+                <h3>Topics</h3>
+              </header>
+              <div className="Topic-container">
+                 {
+                  topics.length > 0 && topics.map(item => {
+                     return <li key={item._id}>
+                       <span>{item.TopicName}</span>
+                       <span>{item.percent}%</span>
+                      </li>
+                  })
+                 }
+              </div>
+          </div>
+       </div>
     </div>
-  );
+  )
 }
 
 export default Dashboard;

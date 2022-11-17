@@ -10,7 +10,7 @@
   background-position:top;
   background-size:100%;
   background-repeat: no-repeat;
-  background-color: rgb(255 255 255 / 83%);
+  background-color: rgba(255, 255, 255, 0.468);
   position: relative;
   z-index: 2;
   border-radius: 10px;
@@ -18,20 +18,14 @@
 }
 
 
-input {
+input[type="text"] {
   padding: 15px;
   border: none;
   outline: 1px solid #DEDEE6;
   border: 1px solid #DEDEE6;
-  border-radius: 10px;
+  border-radius: 2px;
   margin-top: 10px;
   width : 250px;
-  transition : all .2s ease-in-out;
-}
-
-input:focus {
-  outline : 2px solid rgb(49, 49, 49);
-  outline-offset: 1px;
 }
 
 button{
@@ -47,27 +41,6 @@ button{
   text-transform: uppercase;
   font-family: 'Poppins' ,sans-serif;
   width:100%;
-  border-radius: 10px;
-  opacity : .8;
-  transition: opacity .2s ease-out;
-}
-
-.add-order-button {
-  padding: 10px !important;
-  width : 100px;
-}
-
-.add-order-form input {
-  width : 100%;
-}
-
-.add-order-form .form {
-   width : 50%;
-
-}
-
-button:hover {
-  opacity : 1;
 }
 
 h1 {
@@ -85,8 +58,9 @@ h1 {
 
 .dashboard-container {
   width : 95%;
-  height: 100vh;
+  height: auto;
   margin: 1rem auto;
+  box-shadow: 0px 0px 2px 2px lightgray;
   padding : 0 1.5rem;
   background : #fff;
 }
@@ -98,31 +72,7 @@ h1 {
 header {
   border-bottom: 1px solid rgb(222, 222, 222);
   padding: .5rem 0;
-  display: flex;
-  justify-content: space-between;
 }
-
-header .header-left {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.header-left button{
-  padding: 10px !important;
-  font-size: 12px;
-  border-radius: 50px;
-}
-
-header .username {
-   background: whitesmoke;
-   padding: 5px 1rem;
-   border-radius: 50px;
-   cursor: pointer;
-   outline: 2px solid rgb(212, 212, 212);
-}
-
-
 
 .logout-btn {
   width : auto;
@@ -138,51 +88,196 @@ header .username {
   transition: all .1s ease-in;
 }
 
-.add-order-form {
-   width : 30vw;
+.add-topic-sidebar {
+   width : 40vw;
    height : 90vh;
    background: whitesmoke;
    border-right: 1px solid lightgray;
    padding: 1rem;
    overflow-y: scroll;
-   display : none;
-   transition : display .3s ease-in-out;
 }
 
-main {
-  display : flex;
+.add-topic-form label {
+   font-size: 1rem;
+   font-weight : bold;
+   text-transform: uppercase;
+   color: rgb(65, 64, 64);
 }
 
-.orders-container {
-  width : 70vw;
-}
-
-main .order-list-item {
-  list-style: none;
-  width : 300px;
-  background : rgb(255, 255, 255);
-  box-shadow: 0px 0px 2px 2px rgba(224, 224, 224, 0.625);
+.add-topic-box {
+  width : 100%;
+  max-width: 95%;
+  border: none;
+  background: #fff;
+  height: 300px;
+  transition : all .3s linear;
+  outline: 2px solid transparent;
   border-radius: 10px;
-  margin: 16px 0;
-  line-height: 1;
-  padding: .5rem;
-}
-
-main .order-list-item p {
-  font-size: 14px;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  margin-top: 10px;
+  padding: 1rem 0 0 1rem;
+  font-family: 'Inter' , sans-serif;
   font-weight: 500;
-  color: gray;
+  font-size: 1rem;
 }
 
-main .order-list-item span {
-   color: #000;
-   font-size: 14px;
-   font-weight: 600;
+.selected-text-box {
+  width : 100%;
+  max-width: 95%;
+  border: none;
+  background: #fff;
+  height: 200px auto;
+  transition : all .3s linear;
+  outline: 2px solid transparent;
+  border-radius: 10px;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  margin-top: 10px;
+  padding: 1rem;
+  font-family: 'Inter' , sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  word-break: break-word;
+  display : flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap : 10px;
+
 }
 
-main .order-list-item p:nth-child(2) , p:nth-child(2) span {
-  font-size: 10px;
-  color: rgb(12, 60, 181);
+.selected-text {
+  padding: 5px;
+  transition: all .2s linear;
+  border-radius: 50px;
+  font-size: 12px;
+  width: 90%;
+  border: 1px solid transparent;
+}
+.selected-text:hover{
+  border: 1px solid rgb(126, 125, 125);
+  cursor: pointer;
+}
+
+.add-topic-box:focus {
+  outline: 2px solid rgb(184, 183, 183);
+}
+
+.add-topic-box::placeholder {
+  font-size: 1rem;
+  font-family: 'Inter' , sans-serif;
+}
+
+.add-action-button {
+  outline: none;
+  padding: 1rem;
+  border-radius: 5px;
+  float: right;
+  background: rgb(220, 219, 221);
+  color: rgb(34, 34, 34);
+  font-weight: 600;
+  transition: all .2s linear;
+  text-transform: none;
+  font-size: 12px;
+}
+
+.add-topic-button {
+  font-size: 12px;
+  text-transform: none;
+  outline: none;
+  padding: 1rem;
+  border-radius: 5px;
+  float: right;
+  background: rgb(49, 49, 49);
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  transition: all .2s linear;
+}
+
+
+.add-topic-sidebar .title {
+  font-weight: bold;
+  font-style: italic;
+  color: rgb(10, 3, 51);
+}
+
+.add-topic-sidebar .subtitle {
+   color: gray;
+}
+
+.add-topic-sidebar ul li {
+  margin: 12px 0;
+  font-size: .9rem;
+  color: rgb(69, 66, 66);
+}
+
+.add-topic-input {
+  width : 100% !important;
+  max-width: 93% !important;
+  margin: 12px 0;
+  border-radius: 10px !important;
+}
+
+.selected-text-container {
+  position: relative;
+}
+
+.tooltip-container {
+  background-color: #fff;
+  box-shadow: 0px 0px 2px 2px lightgray;
+  padding: 1rem;
+  border-radius: 10px;
+  width : 150px;
+  position : absolute;
+  bottom : 25px;
+  left : 0;
+  transition : all .4s linear;
+}
+
+
+.tooltip-container ul {
+  padding: 0;
+  list-style: none;
+}
+
+.tooltip-container ul li {
+  margin: 16px 10px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50px;
+  font-size: .9rem;
+  padding: .25rem;
+  font-size: 12px;
+}
+
+.tooltip-container ul li:hover {
+  transition: all .1s linear;
+  transform: scale(.98);
+}
+
+ul li:nth-child(1) {
+  background-color: lightgreen;
+  outline: 2px solid rgb(24, 235, 24);
+  color: darkgreen;
+}
+ul li:nth-child(2) {
+  background-color: rgb(255, 133, 88);
+  outline: 2px solid rgb(231, 68, 9);
+  color: rgb(50, 50, 50);
+}
+ul li:nth-child(3) {
+  background-color: rgb(17, 84, 209);
+  outline: 2px solid rgb(12, 134, 186);
+  color: rgb(255, 255, 255);
+}
+ul li:nth-child(4) {
+  background-color: rgb(251, 35, 35);
+  outline: 2px solid rgb(255, 71, 71);
+  color: rgb(255, 255, 255);
+}
+
+ul li:nth-child(5) {
+  outline: 2px solid rgb(255, 139, 139);
+  color: rgb(22, 21, 21);
 }
 
 
